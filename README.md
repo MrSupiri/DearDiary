@@ -1,3 +1,3 @@
-# Dear Diray
+# Dear Diary
 
-A diray that will find facts about you even you didn't knew
+A diary that will find facts about you, even you didn't knew
