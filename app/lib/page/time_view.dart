@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widget/timebox.dart';
 import 'package:intl/intl.dart';
-import '../singletons/tagged_times.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class TimeViewPage extends StatelessWidget {
@@ -31,7 +30,10 @@ class TimeViewPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print(taggedTimes.getTaggedTimes());
+          Navigator.pushNamed(
+            context,
+            '/tagging',
+          );
         },
         child: Icon(Icons.save),
       ),

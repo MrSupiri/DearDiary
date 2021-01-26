@@ -25,7 +25,7 @@ class TaggedTimes {
   }
 
   void unTagTime(String time) {
-    tagTimes[time] = true;
+    tagTimes[time] = false;
   }
 
   bool toggleTime(String time) {

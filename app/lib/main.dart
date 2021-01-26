@@ -10,6 +10,7 @@
 
 import 'package:flutter/material.dart';
 import 'page/time_view.dart';
+import 'page/tagging_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +22,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: _title, home: TimeViewPage());
+    return MaterialApp(
+      routes: {
+        '/': (context) => TimeViewPage(),
+        '/tagging': (context) => TaggingPage(),
+      },
+      title: _title,
+    );
   }
 }
