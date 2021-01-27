@@ -1,0 +1,204 @@
+{
+    "gaming": {
+        "game": [
+            "league of Legends",
+            "cyberpunk",
+            "witcher"
+        ],
+        "mode": [
+            "competitive",
+            "mormal",
+            "chilling",
+            "squads"
+        ]
+    },
+    "working": {
+        "type": [
+            "thinksmart",
+            "undergraduate",
+            "iconicto",
+            "hobby",
+            "volunteering"
+        ],
+        "paid": [
+            true,
+            false
+        ],
+        "project": [
+            "dear diray",
+            "emf 2.0",
+            "chari lake"
+        ],
+        "skill": [
+            "devOps",
+            "backend",
+            "frontend",
+            "architecting",
+            "research",
+            "documentation",
+            "knowledge transfer"
+        ],
+        "language": [
+            "python",
+            "go",
+            "rust",
+            "javascript",
+            "dart",
+            "html/css"
+        ]
+    },
+    "chilling": {
+        "procrastinating": [
+            true,
+            false
+        ],
+        "reason": [
+            "just woke up",
+            "just ate",
+            "can't figure how to solve this",
+            "exhusted",
+            "just got home",
+            "don't have a better thing to do"
+        ],
+        "mode": {
+            "gaming": [],
+            "reddit": [
+                "mindless browsing",
+                "learning"
+            ],
+            "twitter": [
+                "mindless browsing",
+                "interacting with tweeps"
+            ],
+            "youtube": [
+                "documentaries",
+                "e-sport",
+                "live streams",
+                "other",
+                "gaming",
+                "tutorials",
+                "reviews"
+            ],
+            "netflix": [
+                "tv",
+                "movie",
+                "anime",
+                "documentaries"
+            ],
+            "instagram": [
+                "mindless browsing",
+                "creating a post"
+            ],
+            "reading": [
+                "blogs",
+                "tutorials",
+                "news",
+                "reserch"
+            ],
+            "facebook": [],
+            "spotify": [
+                "music",
+                "podcast"
+            ],
+            "whatsapp": [
+                "group chat",
+                "individual chat",
+                "call"
+            ]
+        },
+        "feeling":[
+            "good",
+            "ok",
+            "happy",
+            "sad",
+            "angry",
+            "depressed"
+        ]
+    },
+    "choring": {
+        "working out": [
+            "full Body",
+            "upper Body",
+            "lower Body",
+            "core",
+            "low intensity",
+            "high intensity"
+        ],
+        "cleaning": [
+            "room",
+            "hardware",
+            "computer",
+            "phone"
+        ],
+        "helping": [
+            "tech support",
+            "mom",
+            "dad",
+            "brother",
+            "family",
+            "friend",
+            "people i don't like"
+        ]
+    },
+    "traveling": {
+        "to": [
+            "home",
+            "boarding",
+            "office"
+        ],
+        "from": [
+            "home",
+            "boarding",
+            "office"
+        ],
+        "mode": [
+            "ride Hailing App",
+            "ride Sharing",
+            "private Vehicle",
+            "bus",
+            "train",
+            "foot"
+        ],
+        "rason": [
+            "running errands",
+            "meeting frineds"
+        ]
+    },
+    "socializing": {
+        "with": [
+            "friends",
+            "family",
+            "acquaintances",
+            "co-workers"
+        ],
+        "enjoyment": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "settings": [
+            "online",
+            "restaurant",
+            "bar",
+            "friend's house"
+        ],
+        "reason": [
+            "party",
+            "treat",
+            "wedding",
+            "funeral",
+            "gathering",
+            "work event",
+            "dayout"
+        ]
+    },
+    "human function": [
+        "sleeping",
+        "showering",
+        "eating",
+        "getting ready",
+        "bathroom breaks"
+    ]
+}
