@@ -1,6 +1,28 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:dear_diary/models/timeblock.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+
+Future<List<TaskBox>> getTasks(String path) async {
+  var url = 'http://192.168.1.103:5000' + path;
+  List<TaskBox> taskBoxes = [];
+
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var tagsJson = jsonDecode(response.body)['data'];
+    List<String> tags = tagsJson != null ? List.from(tagsJson) : null;
+    tags.forEach((e) {
+      taskBoxes.add(TaskBox(
+        title: e,
+        checked: false,
+        path: '$path/$e',
+        goDown: true,
+      ));
+    });
+  }
+  return taskBoxes;
+}
 
 class TaggingPage extends StatefulWidget {
   TaggingPage({Key key}) : super(key: key);
@@ -33,7 +55,8 @@ class _TaggingPageState extends State<TaggingPage> {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
+        child: ListView(
+          // shrinkWrap: true,
           children: [
             Card(
               margin: const EdgeInsets.only(top: 20.0),
@@ -46,9 +69,82 @@ class _TaggingPageState extends State<TaggingPage> {
                 ),
               ),
             ),
+            FutureTaskBox(path: "")
           ],
         ),
       ),
+    );
+  }
+}
+
+class TaskBox extends StatelessWidget {
+  TaskBox({this.title, this.checked, this.path, this.goDown});
+  final String title;
+  final String path;
+  final bool checked;
+  final bool goDown;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CheckboxListTile(
+          title: new Text(
+            title,
+            overflow: TextOverflow.fade,
+            maxLines: 1,
+            softWrap: false,
+          ),
+          value: checked,
+          onChanged: (bool value) {
+            // if (checked) {
+            //   context.read<TimeBlockModel>().unSelectTime(title);
+            // } else {
+            //   context.read<TimeBlockModel>().selectedTime(title);
+            // }
+          },
+          controlAffinity: ListTileControlAffinity.leading,
+        ),
+        FutureTaskBox(path: path)
+      ],
+    );
+  }
+}
+
+class FutureTaskBox extends StatelessWidget {
+  FutureTaskBox({
+    this.path,
+  });
+  final String path;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Widget>>(
+      future: getTasks(path),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<Widget> tasks;
+          if (path.split("/").length > 5) {
+            tasks = snapshot.data
+                .map((e) => SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: SizedBox(
+                        child: e,
+                        width: MediaQuery.of(context).size.width - 10,
+                      ),
+                    ))
+                .toList();
+          } else {
+            tasks = snapshot.data;
+          }
+          return Padding(
+            padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+            child: Column(children: tasks),
+          );
+        }
+        // By default, show a loading spinner.
+        return CircularProgressIndicator();
+      },
     );
   }
 }

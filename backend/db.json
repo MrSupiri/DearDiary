@@ -21,8 +21,8 @@
             "volunteering"
         ],
         "paid": [
-            true,
-            false
+            "yes",
+            "no"
         ],
         "project": [
             "dear diray",
@@ -49,8 +49,8 @@
     },
     "chilling": {
         "procrastinating": [
-            true,
-            false
+            "yes",
+            "no"
         ],
         "reason": [
             "just woke up",
