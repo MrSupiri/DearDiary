@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dear_diary/models/taskblock.dart';
 import 'package:flutter/material.dart';
 import 'package:dear_diary/models/timeblock.dart';
 import 'package:provider/provider.dart';
@@ -7,19 +8,21 @@ import 'package:http/http.dart' as http;
 Future<List<TaskBox>> getTasks(String path) async {
   var url = 'http://192.168.1.103:5000' + path;
   List<TaskBox> taskBoxes = [];
-
-  var response = await http.get(url);
-  if (response.statusCode == 200) {
-    var tagsJson = jsonDecode(response.body)['data'];
-    List<String> tags = tagsJson != null ? List.from(tagsJson) : null;
-    tags.forEach((e) {
-      taskBoxes.add(TaskBox(
-        title: e,
-        checked: false,
-        path: '$path/$e',
-        goDown: true,
-      ));
-    });
+  try {
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var tagsJson = jsonDecode(response.body)['data'];
+      List<String> tags = tagsJson != null ? List.from(tagsJson) : null;
+      tags.forEach((e) {
+        taskBoxes.add(TaskBox(
+          title: e,
+          path: '$path/$e',
+        ));
+      });
+    }
+  } catch (e) {
+    // TODO: handle this error with a bit of dignity
+    print(e);
   }
   return taskBoxes;
 }
@@ -77,40 +80,6 @@ class _TaggingPageState extends State<TaggingPage> {
   }
 }
 
-class TaskBox extends StatelessWidget {
-  TaskBox({this.title, this.checked, this.path, this.goDown});
-  final String title;
-  final String path;
-  final bool checked;
-  final bool goDown;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CheckboxListTile(
-          title: new Text(
-            title,
-            overflow: TextOverflow.fade,
-            maxLines: 1,
-            softWrap: false,
-          ),
-          value: checked,
-          onChanged: (bool value) {
-            // if (checked) {
-            //   context.read<TimeBlockModel>().unSelectTime(title);
-            // } else {
-            //   context.read<TimeBlockModel>().selectedTime(title);
-            // }
-          },
-          controlAffinity: ListTileControlAffinity.leading,
-        ),
-        FutureTaskBox(path: path)
-      ],
-    );
-  }
-}
-
 class FutureTaskBox extends StatelessWidget {
   FutureTaskBox({
     this.path,
@@ -146,5 +115,79 @@ class FutureTaskBox extends StatelessWidget {
         return CircularProgressIndicator();
       },
     );
+  }
+}
+
+class TaskBox extends StatefulWidget {
+  TaskBox({this.title, this.path});
+  final String title;
+  final String path;
+
+  @override
+  _TaskBoxState createState() => _TaskBoxState();
+}
+
+class _TaskBoxState extends State<TaskBox> {
+  bool checked = false;
+  @override
+  void initState() {
+    super.initState();
+    checked = context.read<TaskBlockModel>().checkSelected(widget.path);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (checked) {
+      return Column(
+        children: [
+          CheckboxListTile(
+            title: new Text(
+              widget.title,
+              overflow: TextOverflow.fade,
+              maxLines: 1,
+              softWrap: false,
+            ),
+            value: checked,
+            onChanged: (bool value) {
+              if (value) {
+                context.read<TaskBlockModel>().unSelectTask(widget.path);
+              } else {
+                context.read<TaskBlockModel>().selectTask(widget.path);
+              }
+              setState(() {
+                checked = !checked;
+              });
+            },
+            controlAffinity: ListTileControlAffinity.leading,
+          ),
+          FutureTaskBox(path: widget.path)
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          CheckboxListTile(
+            title: new Text(
+              widget.title,
+              overflow: TextOverflow.fade,
+              maxLines: 1,
+              softWrap: false,
+            ),
+            value: checked,
+            onChanged: (bool value) {
+              if (value) {
+                context.read<TaskBlockModel>().unSelectTask(widget.path);
+              } else {
+                context.read<TaskBlockModel>().selectTask(widget.path);
+              }
+              setState(() {
+                checked = !checked;
+              });
+            },
+            controlAffinity: ListTileControlAffinity.leading,
+          )
+        ],
+      );
+    }
   }
 }
