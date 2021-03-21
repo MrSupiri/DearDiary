@@ -19,7 +19,7 @@ class TaskBlockModel extends ChangeNotifier {
 
   bool checkSelected(String task) {
     if (_taskBlocks.containsKey(task)) {
-      return _taskBlocks[task];
+      return _taskBlocks[task]!;
     }
     return false;
   }
@@ -33,11 +33,9 @@ class TaskBlockModel extends ChangeNotifier {
     }
   }
 
-  List<String> getSelectedTasks() {
+  List<String?> getSelectedTasks() {
     List<String> selectedTasks = [];
-    _taskBlocks.forEach((String k, bool v) => {
-          if (v) {selectedTasks.add(k)}
-        });
+    _taskBlocks.forEach((String k, bool v) => {if (v) selectedTasks.add(k)});
     return selectedTasks;
   }
 }

@@ -1,5 +1,5 @@
-import 'package:dear_diary/screens/time.dart';
-import 'package:dear_diary/screens/tagging.dart';
+import './screens/tagging.dart';
+import './screens/time.dart';
 import 'package:flutter/material.dart';
 
 Map<String, WidgetBuilder> getRoutes() {

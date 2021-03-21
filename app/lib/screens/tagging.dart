@@ -1,18 +1,22 @@
 import 'dart:convert';
-import 'package:dear_diary/models/taskblock.dart';
+import '../models/taskblock.dart';
 import 'package:flutter/material.dart';
 import 'package:dear_diary/models/timeblock.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<TaskBox>> getTasks(String path) async {
-  var url = 'http://192.168.1.103:5000' + path;
+  String url = '192.168.1.39:5000';
+  print(Uri.http(url, path));
   List<TaskBox> taskBoxes = [];
   try {
-    var response = await http.get(url);
+    var response = await http.get(Uri.http(url, path));
     if (response.statusCode == 200) {
       var tagsJson = jsonDecode(response.body)['data'];
-      List<String> tags = tagsJson != null ? List.from(tagsJson) : null;
+      if (tagsJson == null) {
+        return taskBoxes;
+      }
+      List<String> tags = List.from(tagsJson);
       tags.forEach((e) {
         taskBoxes.add(TaskBox(
           title: e,
@@ -28,7 +32,7 @@ Future<List<TaskBox>> getTasks(String path) async {
 }
 
 class TaggingPage extends StatefulWidget {
-  TaggingPage({Key key}) : super(key: key);
+  TaggingPage({Key? key}) : super(key: key);
 
   @override
   _TaggingPageState createState() => _TaggingPageState();
@@ -40,7 +44,7 @@ class _TaggingPageState extends State<TaggingPage> {
     List<Widget> _taggedTimes = [];
 
     context.watch<TimeBlockModel>().selectedTimeBlocks.forEach((time) {
-      _taggedTimes.add(FlatButton(
+      _taggedTimes.add(TextButton(
         child: Text(time, textAlign: TextAlign.center),
         onPressed: () {
           context.read<TimeBlockModel>().unSelectTime(time);
@@ -50,7 +54,7 @@ class _TaggingPageState extends State<TaggingPage> {
 
     if (_taggedTimes.length == 0) {
       // Flutter doesn't like when I exit while building 🤷🏽‍♂️
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         Navigator.pop(context);
       });
     }
@@ -82,7 +86,7 @@ class _TaggingPageState extends State<TaggingPage> {
 
 class FutureTaskBox extends StatelessWidget {
   FutureTaskBox({
-    this.path,
+    required this.path,
   });
   final String path;
 
@@ -92,9 +96,9 @@ class FutureTaskBox extends StatelessWidget {
       future: getTasks(path),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<Widget> tasks;
+          List<Widget>? tasks;
           if (path.split("/").length > 5) {
-            tasks = snapshot.data
+            tasks = snapshot.data!
                 .map((e) => SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: SizedBox(
@@ -108,7 +112,7 @@ class FutureTaskBox extends StatelessWidget {
           }
           return Padding(
             padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-            child: Column(children: tasks),
+            child: Column(children: tasks!),
           );
         }
         // By default, show a loading spinner.
@@ -119,7 +123,7 @@ class FutureTaskBox extends StatelessWidget {
 }
 
 class TaskBox extends StatefulWidget {
-  TaskBox({this.title, this.path});
+  TaskBox({required this.title, required this.path});
   final String title;
   final String path;
 
@@ -148,8 +152,8 @@ class _TaskBoxState extends State<TaskBox> {
               softWrap: false,
             ),
             value: checked,
-            onChanged: (bool value) {
-              if (value) {
+            onChanged: (bool? value) {
+              if (value!) {
                 context.read<TaskBlockModel>().unSelectTask(widget.path);
               } else {
                 context.read<TaskBlockModel>().selectTask(widget.path);
@@ -174,8 +178,8 @@ class _TaskBoxState extends State<TaskBox> {
               softWrap: false,
             ),
             value: checked,
-            onChanged: (bool value) {
-              if (value) {
+            onChanged: (bool? value) {
+              if (value!) {
                 context.read<TaskBlockModel>().unSelectTask(widget.path);
               } else {
                 context.read<TaskBlockModel>().selectTask(widget.path);

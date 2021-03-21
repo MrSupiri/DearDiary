@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dear_diary/models/timeblock.dart';
+import '../models/timeblock.dart';
 import 'package:provider/provider.dart';
 
 class TimeViewPage extends StatelessWidget {
@@ -38,17 +38,17 @@ class TimeViewPage extends StatelessWidget {
 
 class TimeBox extends StatelessWidget {
   // const TimeBox({Key key}) : super(key: key);
-  TimeBox({this.title, this.checked});
+  TimeBox({required this.title, this.checked});
   final String title;
-  final bool checked;
+  final bool? checked;
 
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
       title: new Text(title),
       value: checked,
-      onChanged: (bool value) {
-        if (checked) {
+      onChanged: (bool? value) {
+        if (checked!) {
           context.read<TimeBlockModel>().unSelectTime(title);
         } else {
           context.read<TimeBlockModel>().selectedTime(title);

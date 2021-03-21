@@ -8,6 +8,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="dear_diary"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -45,4 +46,5 @@
             android:value="2" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
+    
 </manifest>
