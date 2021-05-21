@@ -1,10 +1,9 @@
-import './screens/tagging.dart';
-import './screens/time.dart';
 import 'package:flutter/material.dart';
+import 'pages/landing.page.dart';
 
 Map<String, WidgetBuilder> getRoutes() {
   return {
-    '/': (context) => TimeViewPage(),
-    '/tagging': (context) => TaggingPage(),
+    '/': (context) => LandingPage(),
+    // '/tagging': (context) => TaggingPage(),
   };
 }
