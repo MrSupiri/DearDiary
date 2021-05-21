@@ -1,4 +1,4 @@
-# dear_diary
+# paper_planes
 
 A new Flutter project.
 

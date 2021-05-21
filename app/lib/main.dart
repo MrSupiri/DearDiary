@@ -1,26 +1,45 @@
-import 'package:dear_diary/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:dear_diary/models/timeblock.dart';
-import 'package:dear_diary/models/taskblock.dart';
+import 'package:flutter/services.dart';
+import 'package:sizer/sizer.dart';
+
+import 'package:paper_planes/routes.dart';
+import 'package:paper_planes/theme.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => TaskBlockModel()),
-        ChangeNotifierProvider(create: (_) => TimeBlockModel()),
-      ],
-      child: MyApp(),
-    ),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  ).then((val) {
+    runApp(MyApp());
+  });
+  // runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: getRoutes(),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          routes: getRoutes(),
+          theme: getTheme(),
+        );
+      },
     );
   }
 }
+
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context)
+// }
