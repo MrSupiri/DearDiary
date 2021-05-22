@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:paper_planes/routes.dart';
-import 'package:paper_planes/theme.dart';
+import 'package:yui/routes.dart';
+import 'package:yui/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

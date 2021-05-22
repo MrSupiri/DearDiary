@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:paper_planes/util/constants.dart';
+import 'package:yui/util/constants.dart';
 
 class LandingPage extends StatefulWidget {
   LandingPage({Key? key}) : super(key: key);
