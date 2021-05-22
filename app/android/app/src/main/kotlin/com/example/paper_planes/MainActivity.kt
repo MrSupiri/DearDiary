@@ -1,4 +1,4 @@
-package com.example.paper_planes
+package me.isala.yui
 
 import io.flutter.embedding.android.FlutterActivity
 

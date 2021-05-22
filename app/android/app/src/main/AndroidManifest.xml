@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.paper_planes">
+    package="me.isala.yui">
    <application
-        android:label="paper_planes"
+        android:label="yui"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

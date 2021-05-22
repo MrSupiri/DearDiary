@@ -1,6 +1,6 @@
 {
-    "name": "paper_planes",
-    "short_name": "paper_planes",
+    "name": "yui",
+    "short_name": "yui",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
