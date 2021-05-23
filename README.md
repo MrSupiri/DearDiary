@@ -1,3 +1,3 @@
-# Dear Diary
+# Project Yui
 
-A diary that will find facts about you, even you didn't knew
+A app that inspire you to be the best version of yourself

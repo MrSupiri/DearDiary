@@ -1,5 +1,5 @@
 [package]
-name = "DearDiary"
+name = "project_yui"
 version = "0.1.0"
 authors = ["Isala Piyarisi <code@isala.me>"]
 edition = "2018"
@@ -7,3 +7,11 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+actix-web = "3"
+actix-cors = "0.4.0"
+env_logger = "0.8"
+serde = "1.0.103"
+serde_json = "1.0.44"
+serde_derive = "1.0.103"
+juniper = "0.15"
+uuid = { version = "0.8", features = ["serde", "v4"] }
