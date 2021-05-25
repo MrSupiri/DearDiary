@@ -1,7 +1,8 @@
 pub mod entities;
-mod root;
+mod mutation;
+mod query;
 
-use self::root::{MutationRoot, QueryRoot};
+use self::{mutation::MutationRoot, query::QueryRoot};
 use juniper::{EmptySubscription, RootNode};
 
 pub struct Context {}
