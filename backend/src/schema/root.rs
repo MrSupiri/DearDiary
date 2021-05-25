@@ -1,8 +1,11 @@
+use super::{
+    entities::{
+        product::{Product, ProductInput},
+        user::{User, UserInput},
+    },
+    Context,
+};
 use juniper::FieldResult;
-
-use super::product::{Product, ProductInput};
-use super::user::{User, UserInput};
-use super::Context;
 
 pub struct QueryRoot;
 

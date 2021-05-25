@@ -1,6 +1,5 @@
-mod product;
+pub mod entities;
 mod root;
-mod user;
 
 use self::root::{MutationRoot, QueryRoot};
 use juniper::{EmptySubscription, RootNode};
