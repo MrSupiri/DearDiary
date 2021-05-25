@@ -1,5 +1,5 @@
-use crate::schemas::root::Context;
-use crate::schemas::user::User;
+use crate::schema::user::User;
+use crate::schema::Context;
 
 /// Product
 #[derive(Default, Debug)]
@@ -37,7 +37,11 @@ impl Product {
         //     let (id, name, email) = from_row(user.unwrap().unwrap());
         //     Some(User { id, name, email })
         // }
-        Some(User { id: "1".to_string(), name: "name".to_string(), email: "email".to_string() })
+        Some(User {
+            id: "1".to_string(),
+            name: "name".to_string(),
+            email: "email".to_string(),
+        })
     }
 }
 

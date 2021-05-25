@@ -1,15 +1,13 @@
+use crate::schema::{create_schema, Context, Schema};
 use actix_web::{web, Error, HttpResponse};
-use juniper::http::graphiql::graphiql_source;
+use juniper::http::playground::playground_source;
 use juniper::http::GraphQLRequest;
-
-use crate::schemas::root::{create_schema, Context, Schema};
 
 pub async fn graphql(
     schema: web::Data<Schema>,
     data: web::Json<GraphQLRequest>,
 ) -> Result<HttpResponse, Error> {
-    let ctx = Context {
-    };
+    let ctx = Context {};
     let res = web::block(move || {
         let res = data.execute_sync(&schema, &ctx);
         Ok::<_, serde_json::error::Error>(serde_json::to_string(&res)?)
@@ -25,12 +23,12 @@ pub async fn graphql(
 pub async fn graphql_playground() -> HttpResponse {
     HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
-        .body(graphiql_source("/graphql", None))
+        .body(playground_source("/graphql", None))
 }
 
 pub fn register(config: &mut web::ServiceConfig) {
     config
         .data(create_schema())
-        .route("/graphql", web::post().to(graphql))
-        .route("/graphiql", web::get().to(graphql_playground));
+        .route("/", web::get().to(graphql_playground))
+        .route("/graphql", web::post().to(graphql));
 }

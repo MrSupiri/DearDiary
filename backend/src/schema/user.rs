@@ -1,5 +1,5 @@
-use crate::schemas::product::Product;
-use crate::schemas::root::Context;
+use crate::schema::product::Product;
+use crate::schema::Context;
 
 /// User
 #[derive(Default, Debug)]
@@ -29,6 +29,19 @@ impl User {
     }
 
     fn products(&self, _context: &Context) -> Vec<Product> {
-        vec![Product{id: "1".to_string(), user_id: "1".to_string(), name: "name".to_string(), price: 123.23}, Product{id: "2".to_string(), user_id: "1".to_string(), name: "name2".to_string(), price : 223.23}]
+        vec![
+            Product {
+                id: "1".to_string(),
+                user_id: "1".to_string(),
+                name: "name".to_string(),
+                price: 123.23,
+            },
+            Product {
+                id: "2".to_string(),
+                user_id: "1".to_string(),
+                name: "name2".to_string(),
+                price: 223.23,
+            },
+        ]
     }
 }

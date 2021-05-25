@@ -7,7 +7,7 @@ use actix_web::{middleware, web, App, HttpServer};
 use crate::handlers::register;
 
 mod handlers;
-mod schemas;
+mod schema;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
