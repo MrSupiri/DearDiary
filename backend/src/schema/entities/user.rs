@@ -1,5 +1,5 @@
 use super::product::Product;
-use crate::schema::Context;
+use crate::{resolvers::product::get_products_by_user_id, schema::Context};
 
 #[derive(Default, Debug)]
 /// User Object
@@ -29,19 +29,6 @@ impl User {
     }
 
     fn products(&self, _context: &Context) -> Vec<Product> {
-        vec![
-            Product {
-                id: "1".to_string(),
-                user_id: "1".to_string(),
-                name: "name".to_string(),
-                price: 123.23,
-            },
-            Product {
-                id: "2".to_string(),
-                user_id: "1".to_string(),
-                name: "name2".to_string(),
-                price: 223.23,
-            },
-        ]
+        get_products_by_user_id(_context, self.id.clone()).unwrap()
     }
 }

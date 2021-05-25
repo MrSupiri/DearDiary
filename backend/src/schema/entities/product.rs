@@ -1,5 +1,6 @@
+// use juniper::FieldResult;
 use super::user::User;
-use crate::schema::Context;
+use crate::{resolvers::user::get_user, schema::Context};
 
 // Product
 #[derive(Default, Debug)]
@@ -26,22 +27,10 @@ impl Product {
     }
 
     fn user(&self, _context: &Context) -> Option<User> {
-        // let mut conn = context.dbpool.get().unwrap();
-        // let user: Result<Option<Row>, DBError> = conn.first_exec(
-        //     "SELECT * FROM user WHERE id=:id",
-        //     params! {"id" => &self.user_id},
-        // );
-        // if let Err(_err) = user {
-        //     None
-        // } else {
-        //     let (id, name, email) = from_row(user.unwrap().unwrap());
-        //     Some(User { id, name, email })
-        // }
-        Some(User {
-            id: "1".to_string(),
-            name: "name".to_string(),
-            email: "email".to_string(),
-        })
+        match get_user(_context, self.user_id.clone()) {
+            Ok(user) => Some(user),
+            Err(_) => None,
+        }
     }
 }
 

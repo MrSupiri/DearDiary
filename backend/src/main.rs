@@ -2,12 +2,12 @@
 extern crate juniper;
 extern crate serde_json;
 
-use actix_web::{middleware, web, App, HttpServer};
+mod handlers;
+mod resolvers;
+mod schema;
 
 use crate::handlers::register;
-
-mod handlers;
-mod schema;
+use actix_web::{middleware, web, App, HttpServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
